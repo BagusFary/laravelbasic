@@ -1,9 +1,9 @@
 @extends('layouts.maintemplate')
 
-@section('title', 'Contact')
+@section('title', 'Class')
 
 
 @section('content')
-<h1>Halaman Contact</h1>
+<h1>Halaman Class</h1>
 
 @endsection
