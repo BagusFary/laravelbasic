@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ClassController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\ExtracurricularController;
+use App\Http\Controllers\TeacherController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,15 +21,18 @@ Route::get('/', function() {
     return view('home', [
         'name' => 'Bagus', 
         'role' => 'Admin',
-        'buah' => ['jeruk', 'apel', 'mangga', 'anggur', 'alpukat']
     ]);
 });
 
 Route::get('/students', [StudentController::class, 'index']);
 
-Route::get('/class', function() {
-    return view('class');
-});
+Route::get('/class', [ClassController::class, 'index']);
+
+Route::get('/extracurriculars', [ExtracurricularController::class, 'index']);
+
+Route::get('/teachers', [TeacherController::class, 'index']);
+
+
 
 
 

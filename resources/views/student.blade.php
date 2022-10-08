@@ -7,22 +7,35 @@
 <h3>List Student</h3>
 
 <table class="table table-dark table-striped">
+<thead>
     <tr>
         <th>No.</th>
         <th>Nama</th>
         <th>Gender</th>
         <th>NIS</th>
-        <td>Kelas</td>
+        <th>Kelas</th>
+        <th>Eskul</th>
+        {{-- <th>Teacher</th> --}}
     </tr>
+</thead>
+<tbody>
+    @foreach($StudentList as $data)
     <tr>
-        @foreach($StudentList as $student)
         <td>{{ $loop->iteration }}</td>
-        <td>{{ $student->nama }}</td>
-        <td>{{ $student->gender }}</td>
-        <td>{{ $student->nis }}</td>
-        <td>{{ $student->class_id }}</td>
+        <td>{{ $data->nama }}</td>
+        <td>{{ $data->gender }}</td>
+        <td>{{ $data->nis }}</td>
+        <td>{{ $data->class->nama }}</td>
+        <td>
+            @foreach($data->extracurriculars as $data)
+           - {{ $data->nama }} <br>
+            @endforeach
+        </td>
+        {{-- <td>{{ $data->class->homeroomTeacher->nama }}</td> --}}
     </tr>
-         @endforeach
+    @endforeach
+</tbody>
+
 </table>
 
 
