@@ -9,8 +9,8 @@ class Extracurricular extends Model
 {
     use HasFactory;
 
-    // protected $table = 'extracurriculars';
-    // protected $primaryKey = 'id';
+    protected $table = 'extracurriculars';
+    protected $primaryKey = 'id';
 
 
     public function students()

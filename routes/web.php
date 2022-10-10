@@ -25,12 +25,22 @@ Route::get('/', function() {
 });
 
 Route::get('/students', [StudentController::class, 'index']);
+Route::get('/student/{id}', [StudentController::class, 'show']);
+Route::get('/student-create', [StudentController::class, 'create']);
+Route::post('/student', [StudentController::class, 'store']);
+Route::get('/student-edit/{id}', [StudentController::class, 'edit']);
+Route::put('/student/{id}', [StudentController::class, 'update']);
+Route::get('/student-delete/{id}', [StudentController::class, 'delete']);
+Route::delete('/student-destroy/{id}', [StudentController::class, 'destroy']);
 
 Route::get('/class', [ClassController::class, 'index']);
+Route::get('/class/{id}', [ClassController::class, 'show']);
 
 Route::get('/extracurriculars', [ExtracurricularController::class, 'index']);
+Route::get('/extracurriculars/{id}', [ExtracurricularController::class, 'show']);
 
 Route::get('/teachers', [TeacherController::class, 'index']);
+Route::get('/teacher/{id}', [TeacherController::class, 'show']);
 
 
 

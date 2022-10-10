@@ -9,7 +9,12 @@ class Teacher extends Model
 {
     use HasFactory;
 
-    // protected $table = 'teachers';
-    // protected $primaryKey = 'id';
+    protected $table = 'teachers';
+    protected $primaryKey = 'id';
 
+
+    public function Class()
+    {
+        return $this->hasOne(ClassRoom::class, 'teacher_id', 'id');
+    }
 }
