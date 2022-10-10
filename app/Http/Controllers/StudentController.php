@@ -72,4 +72,29 @@ class StudentController extends Controller
 
         return redirect('/students');
     }
+
+    public function deletedStudent()
+    {
+        $student = Student::onlyTrashed()->with('class')->get();
+        return view('student-deleted-list', ['deletedStudent' => $student]);
+    }
+
+    public function recoverStudent($id)
+    {
+        $recoverStudent = Student::withTrashed()->where('id', $id)->get();
+        return view('student-recover', ['student' => $recoverStudent]);
+    }
+
+    public function restoredStudent($id)
+    {
+        $restoredStudent = Student::withTrashed()->where('id', $id)->restore();
+
+        if($restoredStudent) {
+            Session::flash('status', 'success');
+            Session::flash('message', 'Restore Student Success');
+        }
+
+        return redirect('/students');
+        
+    }
 }
