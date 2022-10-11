@@ -48,7 +48,7 @@
         </tbody>
 
         </table>
-s
+        
         <div class="my-4">
         {{ $StudentList->links() }}
        </div>  
