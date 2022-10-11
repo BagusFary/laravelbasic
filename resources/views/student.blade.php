@@ -14,7 +14,7 @@
             <a href="/student-deleted" class="btn btn-outline-dark">Show Deleted Data</a>
         </div>
 
-    @if(Session::has('status'))
+    @if(Session::has('message'))
     <div class="alert alert-success" role="alert">
         {{ Session::get('message') }}
       </div>

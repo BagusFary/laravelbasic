@@ -66,7 +66,7 @@ class StudentController extends Controller
         $deletedStudent->delete();
 
         if($deletedStudent) {
-            Session::flash('status', 'success');
+            // Session::flash('status', 'success');
             Session::flash('message', 'Delete Student Success');
         }
 
@@ -90,7 +90,7 @@ class StudentController extends Controller
         $restoredStudent = Student::withTrashed()->where('id', $id)->restore();
 
         if($restoredStudent) {
-            Session::flash('status', 'success');
+            // Session::flash('status', 'success');
             Session::flash('message', 'Restore Student Success');
         }
 

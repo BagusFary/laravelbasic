@@ -19,7 +19,7 @@
             <tr>
                 <th>No.</th>
                 <th>Nama</th>
-                <th>gender</th>
+                <th>Gender</th>
                 <th>NIS</th>
                 <th>Kelas</th>
                 <th>Aksi</th>
