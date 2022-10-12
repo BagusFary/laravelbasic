@@ -67,8 +67,21 @@ class StudentController extends Controller
 
     public function update(Request $request, $id)
     {
+        $newName = '';
+
+        if($request->file('gambar')) {
+        $extension = $request->file('gambar')->getClientOriginalExtension();
+        $newName = $request->nama.'-'.now()->timestamp.'.'.$extension;
+        $request->file('gambar')->storeAs('gambar', $newName);
+        }
+
+        $request['image'] = $newName;
         $student = Student::findOrFail($id);
         $student->update($request->all());
+        if($student) {
+            Session::flash('status', 'success');
+            Session::flash('message', 'Update Student Success');
+        }
         return redirect('/students');
     }
 

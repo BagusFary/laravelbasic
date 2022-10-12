@@ -6,7 +6,7 @@
 <h3>Edit Student</h3>
 
 <div class="mt-4 col-5 m-auto">
-    <form action="/student/{{ $student->id }}" method="POST">
+    <form action="/student/{{ $student->id }}" method="POST" enctype="multipart/form-data">
         @method('PUT')
         @csrf
         <div class="mb-4">
@@ -51,7 +51,21 @@
             </select>
         </div>
 
-        <div>
+        @if($student->image)
+        <div class="mb-4">
+            <img src="{{ asset('storage/gambar/'. $student->image) }}" alt="" width="100px">
+        </div>
+        @else
+        <div class="mb-4">
+            <img src="{{ asset('storage/gambardefault/default.png') }}" alt="" width="100px">
+        </div>
+        @endif
+        <div class="mb-4">
+            <label for="gambar">Gambar</label>
+            <input type="file" class="form-control" name="gambar" id="gambar">
+        </div>
+
+        <div class="mb-5">
             <button class="btn btn-outline-success" type="submit">Edit Data</button>
         </div>
         
