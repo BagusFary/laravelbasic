@@ -11,6 +11,18 @@
 
 <h3>Halaman Detail Student {{ $student->nama }}</h3>
 
+@if($student->image)
+<div class="my-4 d-flex justify-content-center">
+    <img src="{{ asset('storage/gambar/'. $student->image) }}" alt="" width="100px">
+</div>
+@else 
+    <div class="my-4 d-flex justify-content-center">
+        <img src="{{ asset('storage/gambardefault/default.png') }}" alt="" width="100px">
+    </div>
+
+@endif
+
+
 <table class="table table-dark table-striped mt-5">
     <tr>
         <th>Gender</th>
@@ -42,7 +54,6 @@
     </tr>
 </table>
 
-{{ count($student->extracurriculars) }}
 
 
 

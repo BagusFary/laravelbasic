@@ -14,7 +14,7 @@ class Student extends Model
 
     protected $table = 'students';
     protected $primaryKey = 'id';
-    protected $fillable = ['nama','gender','nis','class_id'];
+    protected $fillable = ['nama','gender','nis','class_id','image',];
 
 
     public function class()

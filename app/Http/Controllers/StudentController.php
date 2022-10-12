@@ -11,9 +11,17 @@ use App\Http\Requests\StudentCreateValidator;
 
 class StudentController extends Controller
 {
-    public function index() 
+    public function index(Request $request) 
     {
-        $student = Student::paginate(15);
+        $keyword = $request->keyword;
+        $student = Student::with('class')
+                            ->where('nama', 'LIKE', '%'.$keyword.'%')
+                            ->orWhere('gender', $keyword)
+                            ->orWhere('nis', 'LIKE', '%'.$keyword.'%')
+                            ->orWhereHas('class', function($query) use($keyword) {
+                                $query->where('nama', 'LIKE', '%'.$keyword.'%');
+                            }) 
+                            ->paginate(15);
         return view('student', ['StudentList' => $student]);
 
     }
@@ -32,7 +40,17 @@ class StudentController extends Controller
     
     public function store(StudentCreateValidator $request)
     {
-        $student = Student::create($request->all());
+        $newName = '';
+
+        if($request->file('gambar')) {
+        $extension = $request->file('gambar')->getClientOriginalExtension();
+        $newName = $request->nama.'-'.now()->timestamp.'.'.$extension;
+        $request->file('gambar')->storeAs('gambar', $newName);
+    }
+
+    $request['image'] = $newName;
+    $student = Student::create($request->all());
+
         if($student) {
             Session::flash('status', 'success');
             Session::flash('message', 'Add New Student Success');

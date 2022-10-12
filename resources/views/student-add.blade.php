@@ -16,7 +16,7 @@
             </div>
         @endif
         
-        <form action="/student" method="post">
+        <form action="/student" method="post" enctype="multipart/form-data">
             @csrf
             <div class="mb-4">
             <label for="nama">Nama</label>
@@ -47,6 +47,13 @@
                 </select>
             </div>
 
+            <div class="mb-4">
+             <label for="gambar">Gambar</label>
+                 <div class="input-group">
+                     <input type="file" class="form-control" name="gambar" id="gambar">
+                </div>
+            </div>
+
             <div>
                 <button class="btn btn-outline-success" type="submit">Add Data</button>
             </div>
@@ -54,6 +61,4 @@
         </form>
     </div>
 
-
-    
 @endsection
