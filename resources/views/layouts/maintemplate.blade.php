@@ -33,6 +33,9 @@
                 <a class="nav-link" href="/teachers">Teachers</a>
               </li>
             </ul>
+            <li class="nav-item d-flex">
+              <a class="btn btn-outline-light" href="/logout">Logout</a>
+          </li>
           </div>
         </div>
       </nav>

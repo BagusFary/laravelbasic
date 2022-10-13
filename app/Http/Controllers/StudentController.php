@@ -7,6 +7,7 @@ use App\Models\ClassRoom;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StudentCreateValidator;
 
 class StudentController extends Controller
@@ -75,7 +76,17 @@ class StudentController extends Controller
         $request->file('gambar')->storeAs('gambar', $newName);
         }
 
-        $request['image'] = $newName;
+        
+
+        if($request->file('gambar'))
+        {
+            $request['image'] = $newName;
+            $gambar = Student::where('id', $id )->select('image')->get();
+            Storage::delete('gambar/' .$gambar[0]->image);
+
+
+        }
+        
         $student = Student::findOrFail($id);
         $student->update($request->all());
         if($student) {
@@ -102,6 +113,28 @@ class StudentController extends Controller
         }
 
         return redirect('/students');
+    }
+
+    public function deleteGambar($id)
+    {
+        $gambar = Student::findOrFail($id);
+        return view('delete-gambar', ['gambar' => $gambar]);
+    }
+
+    public function destroyGambar($id)
+    {
+        $gambar = Student::where('id', '=', $id )->select('image')->get();
+        Storage::delete('gambar/' .$gambar[0]->image);
+        $destroyGambar = Student::findOrFail($id);
+        $destroyGambar->update(['image' => null]);
+
+        if($destroyGambar) {
+            // Session::flash('status', 'success');
+            Session::flash('message', 'Delete Gambar Success');
+        }
+
+        return redirect('/students');
+        
     }
 
     public function deletedStudent()

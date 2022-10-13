@@ -11,8 +11,15 @@
 
     <h1>Halaman Student</h1> 
         <div class="mb-3 d-flex justify-content-between">
+            @if(Auth::user()->role_id != 1 && Auth::user()->role_id != 2)
+            @else
             <a href="/student-create" class="btn btn-outline-dark">Add Data</a>
+            @endif
+
+            @if(Auth::user()->role_id != 1)
+            @else
             <a href="/student-deleted" class="btn btn-outline-dark">Show Deleted Data</a>
+            @endif
         </div>
 
     @if(Session::has('message'))
@@ -52,9 +59,18 @@
                 <td>{{ $data->nis }}</td>
                 <td>{{ $data->class->nama }}</td>
                 <td>
+                    @if(Auth::user()->role_id != 1 && Auth::user()->role_id != 2)
+                    -
+                    @else
                     <a href="student/{{ $data->id }}" class="btn btn-outline-light mb-2 col-12 col-sm-5 col-md-5">Detail</a>
                     <a href="student-edit/{{ $data->id }}" class="btn btn-outline-warning mb-2 col-12 col-sm-5 col-md-5">Edit</a>
+                    @endif
+
+                    @if(Auth::user()->role_id != 1)
+                    
+                    @else
                     <a href="student-delete/{{ $data->id }}" class="btn btn-outline-danger mb-2 col-12 col-sm-5 col-md-5">Delete</a>
+                    @endif
                 </td>
             </tr>
             @endforeach

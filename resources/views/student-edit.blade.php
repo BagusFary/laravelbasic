@@ -54,6 +54,7 @@
         @if($student->image)
         <div class="mb-4">
             <img src="{{ asset('storage/gambar/'. $student->image) }}" alt="" width="100px">
+            <a href="/student-delete-gambar/{{ $student->id }}" class="btn btn-danger mx-3">Delete Gambar</a>
         </div>
         @else
         <div class="mb-4">
@@ -66,7 +67,7 @@
         </div>
 
         <div class="mb-5">
-            <button class="btn btn-outline-success" type="submit">Edit Data</button>
+            <button class="btn btn-outline-success" type="submit">Save Data</button>
         </div>
         
     </form>

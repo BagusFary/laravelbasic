@@ -1,10 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\StudentController;
-use App\Http\Controllers\ExtracurricularController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\ExtracurricularController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,32 +19,36 @@ use App\Http\Controllers\TeacherController;
 */
 
 Route::get('/', function() {
-    return view('home', [
-        'name' => 'Bagus', 
-        'role' => 'Admin',
-    ]);
-});
+    return view('home');
+})->middleware('auth');
 
-Route::get('/students', [StudentController::class, 'index']);
-Route::get('/student/{id}', [StudentController::class, 'show']);
-Route::get('/student-create', [StudentController::class, 'create']);
-Route::post('/student', [StudentController::class, 'store']);
-Route::get('/student-edit/{id}', [StudentController::class, 'edit']);
-Route::put('/student/{id}', [StudentController::class, 'update']);
-Route::get('/student-delete/{id}', [StudentController::class, 'delete']);
-Route::delete('/student-destroy/{id}', [StudentController::class, 'destroy']);
-Route::get('/student-deleted', [StudentController::class, 'deletedStudent']);
-Route::get('/student/{id}/recover', [StudentController::class, 'recoverStudent']);
-Route::get('/student/{id}/restored', [StudentController::class, 'restoredStudent']);
+Route::get('/login', [AuthController::class, 'login'])->name('login')->middleware('guest');
+Route::post('/login', [AuthController::class, 'authenticating']);
+Route::get('/logout', [AuthController::class, 'logout'])->middleware('auth');
 
-Route::get('/class', [ClassController::class, 'index']);
-Route::get('/class/{id}', [ClassController::class, 'show']);
 
-Route::get('/extracurriculars', [ExtracurricularController::class, 'index']);
-Route::get('/extracurriculars/{id}', [ExtracurricularController::class, 'show']);
+Route::get('/students', [StudentController::class, 'index'])->middleware('auth');
+Route::get('/student/{id}', [StudentController::class, 'show'])->middleware(['auth', 'admin-teacher']);
+Route::get('/student-create', [StudentController::class, 'create'])->middleware(['auth', 'admin-teacher']);
+Route::post('/student', [StudentController::class, 'store'])->middleware(['auth', 'admin-teacher']);
+Route::get('/student-edit/{id}', [StudentController::class, 'edit'])->middleware(['auth', 'admin-teacher']);
+Route::put('/student/{id}', [StudentController::class, 'update'])->middleware(['auth', 'admin-teacher']);
+Route::get('/student-delete/{id}', [StudentController::class, 'delete'])->middleware(['auth', 'admin']);
+Route::delete('/student-destroy/{id}', [StudentController::class, 'destroy'])->middleware(['auth', 'admin']);
+Route::get('/student-delete-gambar/{id}', [StudentController::class, 'deleteGambar'])->middleware(['auth', 'admin']);
+Route::delete('/student-destroy-gambar/{id}', [StudentController::class, 'destroyGambar'])->middleware(['auth', 'admin']);
+Route::get('/student-deleted', [StudentController::class, 'deletedStudent'])->middleware(['auth', 'admin']);
+Route::get('/student/{id}/recover', [StudentController::class, 'recoverStudent'])->middleware(['auth', 'admin']);
+Route::get('/student/{id}/restored', [StudentController::class, 'restoredStudent'])->middleware(['auth', 'admin']);
 
-Route::get('/teachers', [TeacherController::class, 'index']);
-Route::get('/teacher/{id}', [TeacherController::class, 'show']);
+Route::get('/class', [ClassController::class, 'index'])->middleware('auth');
+Route::get('/class/{id}', [ClassController::class, 'show'])->middleware('auth');
+
+Route::get('/extracurriculars', [ExtracurricularController::class, 'index'])->middleware('auth');
+Route::get('/extracurriculars/{id}', [ExtracurricularController::class, 'show'])->middleware('auth');
+
+Route::get('/teachers', [TeacherController::class, 'index'])->middleware('auth');
+Route::get('/teacher/{id}', [TeacherController::class, 'show'])->middleware('auth');
 
 
 
